@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../styles/output.css" rel="stylesheet">
+    <title>TV Shows Leaderboard</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/mustache@latest"></script>
+</head>
+
+<body class="bg-pink-100">
+    <header>
+        <div hx-get="navbar/navbar.html" hx-trigger="load" hx-target="this"></div>
+    </header>
+
+    <div class="container mx-auto py-8">
+        <h1 class="text-4xl font-bold text-pink-700 text-center mb-8">TV Shows Leaderboard</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-800" 
+            id="leaderboardContainer"
+            hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json"
+            hx-swap="innerHTML"
+            hx-trigger="load"
+            hx-ext="client-side-templates"
+            mustache-template="leaderboardTemplate"
+            hx-request='{"noHeaders": true}'>
+        </div>
+    </div>
+
+    <template id="leaderboardTemplate">
+        {{#result}}
+        <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-pink-300">
+            <div class="p-6">
+                <h2 class="text-xl font-semibold text-pink-800">Rank: {{rank}}</h2>
+                <h3 class="text-lg font-bold text-gray-900">{{title}}</h3>
+                <p class="text-gray-600">IMDB ID: {{imdb_id}}</p>
+                <p class="text-gray-600">Popularity: {{popularity}}</p>
+                <a href="{{embed_url}}" target="_blank" 
+                   class="text-pink-600 hover:text-pink-900 hover:underline">Watch</a>
+            </div>
+        </div>
+        {{/result}}
+    </template>
+
+</body>
+
+</html>
