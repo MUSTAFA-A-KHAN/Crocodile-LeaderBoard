@@ -17,33 +17,28 @@
     </header>
 
     <div class="container mx-auto py-8">
-        <h1 class="text-4xl font-bold text-pink-700 text-center mb-8">TV Shows Leaderboard</h1>
+        <h1 class="text-4xl font-bold text-pink-700 text-center mb-8">Leaderboard</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-800" 
             id="leaderboardContainer"
-            hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json"
+            hx-get="https://crocodile-leaderboard-generator-production.up.railway.app/leaderboard"
             hx-swap="innerHTML"
             hx-trigger="load"
             hx-ext="client-side-templates"
             mustache-template="leaderboardTemplate"
-            hx-request='{"noHeaders": true}'>
-        </div>
+            hx-request='{"noHeaders": true}'></div>
     </div>
 
     <template id="leaderboardTemplate">
-        {{#result}}
+        {{#.}}
         <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-pink-300">
             <div class="p-6">
-                <h2 class="text-xl font-semibold text-pink-800">Rank: {{rank}}</h2>
-                <h3 class="text-lg font-bold text-gray-900">{{title}}</h3>
-                <p class="text-gray-600">IMDB ID: {{imdb_id}}</p>
-                <p class="text-gray-600">Popularity: {{popularity}}</p>
-                <a href="{{embed_url}}" target="_blank" 
-                   class="text-pink-600 hover:text-pink-900 hover:underline">Watch</a>
+                <h2 class="text-xl font-semibold text-pink-800">{{Name}}</h2>
+                <p class="text-gray-600">ID: {{_id}}</p>
+                <p class="text-gray-600">Count: {{count}}</p>
             </div>
         </div>
-        {{/result}}
+        {{/.}}
     </template>
-
 </body>
 
 </html>
